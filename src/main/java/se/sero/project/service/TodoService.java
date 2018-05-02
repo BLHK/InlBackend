@@ -1,5 +1,6 @@
 package se.sero.project.service;
 
+import org.glassfish.jersey.internal.guava.Lists;
 import org.springframework.stereotype.Service;
 import se.sero.project.data.Todo;
 import se.sero.project.repository.TodoRepository;
@@ -15,30 +16,29 @@ import static java.util.stream.Collectors.toList;
 public class TodoService {
 
     private final TodoRepository repository;
-    private static final AtomicLong ids = new AtomicLong(1000);
-
 
     public TodoService(TodoRepository repository) {
         this.repository = repository;
     }
 
     public Todo createTodo(Todo todo){
-        return repository.add(new Todo(ids.incrementAndGet(), todo.getToDo(),todo.getPriority(),todo.getUser()));
+        return repository.save(new Todo(todo.getUser(), todo.getToDo(), todo.getPriority()));
     }
-
 
     public Optional<Todo> getTodo(Long id){
-        return repository.get(id);
+        return repository.findById(id);
     }
-
 
     public List<Todo> getAll() {
-        return repository.getAll().collect(toList());
+        return Lists.newArrayList(repository.findAll());
     }
 
-
-    public Optional<Todo> deleteTodo(Long id) {
-        return repository.delete(id);
+    public boolean deleteTodo(Long id) {
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 
 

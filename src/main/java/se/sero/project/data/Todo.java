@@ -1,30 +1,37 @@
 package se.sero.project.data;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
+import javax.ws.rs.DefaultValue;
+import java.io.Serializable;
 
 @Entity
+@Table(name = "todos")
 public class Todo {
 
     @Id
     @GeneratedValue
+    @Column(name = "todo_id")
     private Long id;
 
-    //@JoinColumn(name ="user_id", nullable = false)
-    @ManyToOne//(cascade = CascadeType.PERSIST)
+    @JsonBackReference
+    @JoinColumn(name = "user_id")
+    @ManyToOne(cascade = CascadeType.ALL)
     private User user;
 
     private String toDo;
 
     private String priority;
 
+
     protected Todo(){}
 
 
-    public Todo(Long id, String toDo, String priority, User user) {
-        this.id = id;
+    public Todo(User user, String toDo, String priority) {
+        this.user = user;
         this.toDo = toDo;
         this.priority = priority;
-        this.user = user;
 
     }
 
@@ -43,6 +50,7 @@ public class Todo {
     public String getPriority() {
         return priority;
     }
+
 
     @Override
     public String toString() {

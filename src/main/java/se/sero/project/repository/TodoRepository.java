@@ -9,14 +9,8 @@ import se.sero.project.data.Todo;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-public interface TodoRepository {
+public interface TodoRepository extends CrudRepository<Todo, Long> {
 
-    Todo add(Todo todo);
 
-    Optional<Todo> get(Long id);
-
-    Stream<Todo> getAll();
-
-    Optional<Todo> delete(Long id);
 
 }

@@ -1,5 +1,6 @@
 package se.sero.project.service;
 
+import org.glassfish.jersey.internal.guava.Lists;
 import org.springframework.stereotype.Service;
 import se.sero.project.data.User;
 import se.sero.project.repository.UserRepository;
@@ -16,38 +17,45 @@ import static java.util.stream.Collectors.toList;
 public class UserService {
 
     private final UserRepository repository;
-    //private static final AtomicLong ids = new AtomicLong(1000);
 
     public UserService(UserRepository repository) {
         this.repository = repository;
     }
 
-
     public User createUser(User user){
         return repository.save(new User(user.getFirstName(), user.getLastName()));
     }
-
 
     public Optional<User> getUser(Long id){
         return repository.findById(id);
     }
 
     public List<User> getAllUsers() {
-        List<User> u = new ArrayList<>();
-
-        Iterator<E> iterator = repository.findAll();
-
-        Iterable<t>
-        return u.repository.findAll();
+        return Lists.newArrayList(repository.findAll());
     }
 
+    public boolean deleteUser(Long id) {
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
+    /*
+    GJORD MEN BEHÖVS EJ :(
+
+    public User updateUser (User user){
+        if(repository.existsById(user.getId())){
+            repository.save(user);
+        }
+        return user;
+    }
+    */
     /*
     public List<User> getAllUsers() {
         return repository.findAll(limit).collect(toList());
     }
-
-
-
 
 
 

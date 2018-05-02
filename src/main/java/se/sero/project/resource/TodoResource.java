@@ -42,6 +42,7 @@ public class TodoResource {
         return Response.status(CREATED).header("Location", "todos/" + result.getId()).build();
     }
 
+
     @GET
     @Path("{id}")
     public Response getTodo(@PathParam("id") Long id) {
@@ -53,13 +54,27 @@ public class TodoResource {
 
     @GET
     public Response getAll() {
-        List<Todo> users = service.getAll();
-        return Response.ok(users).build();
+        List<Todo> todos = service.getAll();
+        return Response.ok(todos).build();
     }
 
+
+    @DELETE
+    @Path("{id}")
+    public boolean deleteTodo(@PathParam("id") Long id) {
+        return service.deleteTodo(id);
+    }
+
+    /*
     @DELETE
     @Path("{id}")
     public Response deleteUser(@PathParam("id") Long id) {
         return service.deleteTodo(id).map(c -> Response.status(NO_CONTENT)).orElse(Response.status(NOT_FOUND)).build();
     }
+
+    @GET
+    public Response getAll() {
+        List<User> users = service.getAllUsers();
+        return Response.ok(users).build();
+    }*/
 }

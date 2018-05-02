@@ -12,6 +12,7 @@ import javax.ws.rs.core.UriInfo;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.net.URI;
 import java.util.List;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
@@ -35,17 +36,12 @@ public final class UserResource {
 
     public UserResource(UserService service) {
         this.service = service;
-
-        //for(int i = 0; i < 10; i++){
-        //    service.createUser(new User("Seb", "wag"));
-        //}
     }
-
-
 
     @POST
     public Response createUser(User user){
         User result = service.createUser(user);
+        //URI location = uriInfo.getAbsolutePathBuilder().path(result.getId()).build();
         return Response.status(CREATED).header("Location", "users/" + result.getId()).build();
     }
 
@@ -65,10 +61,22 @@ public final class UserResource {
                 .build();
     }
 
+    @DELETE
+    @Path("{id}")
+    public boolean deleteUser(@PathParam("id") Long id) {
+        return service.deleteUser(id);
+    }
+
+
+
+    /* GJORD MEN BEHÖVS EJ
+    @PUT
+    @Path("{id}")
+    public void updateUser(@PathParam("id") Long id, User user) {
+        service.updateUser(user);
+    }
+    */
     /*
-
-
-
 
 
     @DELETE
