@@ -16,6 +16,7 @@ import java.util.List;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.Response.Status.CREATED;
 import static javax.ws.rs.core.Response.Status.NOT_FOUND;
+import static javax.ws.rs.core.Response.Status.NO_CONTENT;
 
 @Component
 @Produces(APPLICATION_JSON)
@@ -51,8 +52,14 @@ public class TodoResource {
     }
 
     @GET
-    public Response getAll(@QueryParam("limit") @DefaultValue("5") int limit){
-        List<User> users = service.getAllTodos(limit);
+    public Response getAll() {
+        List<Todo> users = service.getAll();
         return Response.ok(users).build();
+    }
+
+    @DELETE
+    @Path("{id}")
+    public Response deleteUser(@PathParam("id") Long id) {
+        return service.deleteTodo(id).map(c -> Response.status(NO_CONTENT)).orElse(Response.status(NOT_FOUND)).build();
     }
 }

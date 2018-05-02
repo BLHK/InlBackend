@@ -15,7 +15,8 @@ public interface TodoRepository {
 
     Optional<Todo> get(Long id);
 
-    Stream<Todo> getAll(Long id);
+    Stream<Todo> getAll();
 
+    Optional<Todo> delete(Long id);
 
 }

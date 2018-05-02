@@ -10,6 +10,8 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.List;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
@@ -40,26 +42,34 @@ public final class UserResource {
     }
 
 
+
     @POST
     public Response createUser(User user){
         User result = service.createUser(user);
         return Response.status(CREATED).header("Location", "users/" + result.getId()).build();
     }
 
+
+    @GET
+    public Response getAll() {
+        List<User> users = service.getAllUsers();
+        return Response.ok(users).build();
+    }
+
     @GET
     @Path("{id}")
-    public Response getCustomer(@PathParam("id") Long id) {
+    public Response getUser(@PathParam("id") Long id) {
         return service.getUser(id)
                 .map(Response::ok)
                 .orElse(Response.status(NOT_FOUND))
                 .build();
     }
 
-    @GET
-    public Response getAll(@QueryParam("limit") @DefaultValue("5") int limit){
-        List<User> users = service.getAllUsers(limit);
-        return Response.ok(users).build();
-    }
+    /*
+
+
+
+
 
     @DELETE
     @Path("{id}")
@@ -67,5 +77,5 @@ public final class UserResource {
         return service.deleteUser(id).map(c -> Response.status(NO_CONTENT)).orElse(Response.status(NOT_FOUND)).build();
     }
 
-
+    */
 }

@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashSet;
 
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
@@ -16,13 +17,12 @@ public class User {
 
     private String lastName;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private Collection<Todo> todos;
 
     protected User(){}
 
-    public User(Long id,String firstName, String lastName) {
-        this.id = id;
+    public User(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
         //this.todos = new HashSet<>();

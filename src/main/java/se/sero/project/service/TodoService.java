@@ -4,8 +4,12 @@ import org.springframework.stereotype.Service;
 import se.sero.project.data.Todo;
 import se.sero.project.repository.TodoRepository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 public class TodoService {
@@ -28,28 +32,14 @@ public class TodoService {
     }
 
 
-
-
-    /*
-
-    public Optional<User> getUser(Long id){
-        return repository.get(id);
+    public List<Todo> getAll() {
+        return repository.getAll().collect(toList());
     }
 
-    public User updateUser(User user){
-        return repository.update(user);
-    }
 
-    public Optional<User> deleteUser(Long id){
+    public Optional<Todo> deleteTodo(Long id) {
         return repository.delete(id);
     }
-
-    public List<User> getAllUsers(int limit) {
-        return repository.getAll(limit).collect(toList());
-    }
-
-     */
-
 
 
 }

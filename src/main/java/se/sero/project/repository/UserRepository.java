@@ -2,18 +2,19 @@ package se.sero.project.repository;
 
 
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.stereotype.Repository;
 import se.sero.project.data.User;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Stream;
 
-public interface UserRepository{
+
+public interface UserRepository extends CrudRepository<User, Long> {
+
+
+    //Stream<User> getAll();
 
     //List<User> findByFirstName(String firstName);
-
+    /*
     User add(User user);
 
     Optional<User> get(Long id);
@@ -23,7 +24,7 @@ public interface UserRepository{
     User update(User user);
 
     Optional<User> delete(Long id);
-
+    */
 
 
 }

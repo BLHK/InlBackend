@@ -1,4 +1,4 @@
-package se.sero.project.repository.memory;
+/*package se.sero.project.repository.memory;
 
 import org.springframework.stereotype.Repository;
 import se.sero.project.data.User;
@@ -44,3 +44,4 @@ public class InMemoryUserRepository implements UserRepository {
         return Optional.ofNullable(users.remove(id));
     }
 }
+*/

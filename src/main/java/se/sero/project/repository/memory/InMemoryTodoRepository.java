@@ -14,6 +14,7 @@ public class InMemoryTodoRepository implements TodoRepository {
 
     private final Map<Long, Todo> todos = new ConcurrentHashMap<>();
 
+
     @Override
     public Todo add(Todo todo) {
         todos.put(todo.getId(), todo);
@@ -25,8 +26,14 @@ public class InMemoryTodoRepository implements TodoRepository {
         return Optional.ofNullable(todos.get(id));
     }
 
+
     @Override
-    public Stream<Todo> getAll(Long id) {
+    public Stream<Todo> getAll() {
         return todos.values().stream();
+    }
+
+    @Override
+    public Optional<Todo> delete(Long id) {
+        return Optional.ofNullable(todos.remove(id));
     }
 }
