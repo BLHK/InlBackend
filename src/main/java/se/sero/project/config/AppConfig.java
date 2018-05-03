@@ -26,7 +26,7 @@ public class AppConfig {
         config.setDriverClassName("com.mysql.jdbc.Driver");
         config.setJdbcUrl("jdbc:mysql://localhost:3306/spring?useSSL=false&serverTimezone=Europe/Paris");
         config.setUsername("root");
-        config.setPassword("");
+        config.setPassword("375698sebbe");
 
         return new HikariDataSource(config);
     }

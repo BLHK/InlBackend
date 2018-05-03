@@ -4,6 +4,7 @@ import org.glassfish.jersey.internal.guava.Lists;
 import org.springframework.stereotype.Service;
 import se.sero.project.data.User;
 import se.sero.project.repository.UserRepository;
+import se.sero.project.service.exceptions.InvalidUserException;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -23,6 +24,7 @@ public class UserService {
     }
 
     public User createUser(User user){
+        validate(user);
         return repository.save(new User(user.getFirstName(), user.getLastName()));
     }
 
@@ -42,34 +44,10 @@ public class UserService {
         return false;
     }
 
-    /*
-    GJORD MEN BEHÖVS EJ :(
-
-    public User updateUser (User user){
-        if(repository.existsById(user.getId())){
-            repository.save(user);
+    private void validate(User user) {
+        if (user.getFirstName() == null || user.getFirstName().isEmpty() ||
+                user.getLastName() == null || user.getLastName().isEmpty()) {
+            throw new InvalidUserException("Fields of object User cannot be empty.");
         }
-        return user;
     }
-    */
-    /*
-    public List<User> getAllUsers() {
-        return repository.findAll(limit).collect(toList());
-    }
-
-
-
-
-    public User updateUser(User user){
-        return repository.update(user);
-    }
-
-    public Optional<User> deleteUser(Long id){
-        return repository.delete(id);
-    }
-
-    */
-
-
-
 }

@@ -24,11 +24,13 @@ import static javax.ws.rs.core.Response.Status.NO_CONTENT;
 @Path("todos")
 public class TodoResource {
 
+    /*
     @Context
     private UriInfo uriInfo;
 
     @Context
     private HttpHeaders headers;
+    */
 
     private final TodoService service;
 
@@ -41,7 +43,6 @@ public class TodoResource {
         Todo result = service.createTodo(todo);
         return Response.status(CREATED).header("Location", "todos/" + result.getId()).build();
     }
-
 
     @GET
     @Path("{id}")
@@ -58,23 +59,24 @@ public class TodoResource {
         return Response.ok(todos).build();
     }
 
-
     @DELETE
     @Path("{id}")
     public boolean deleteTodo(@PathParam("id") Long id) {
         return service.deleteTodo(id);
     }
 
-    /*
-    @DELETE
-    @Path("{id}")
-    public Response deleteUser(@PathParam("id") Long id) {
-        return service.deleteTodo(id).map(c -> Response.status(NO_CONTENT)).orElse(Response.status(NOT_FOUND)).build();
+    @GET
+    @Path("/user/{id}")
+    public Response getAllByUser(@PathParam("id") Long id) {
+        List<Todo> todos = service.getTodosByUserId(id);
+        return Response.ok(todos).build();
     }
 
     @GET
-    public Response getAll() {
-        List<User> users = service.getAllUsers();
-        return Response.ok(users).build();
-    }*/
+    @Path("/user/{id}/{priority}")
+    public Response getAllByUserAndPrio(@PathParam("id") Long id, @PathParam("priority") String priority) {
+        List<Todo> todos = service.getTodosByUserIdAndPriority(id, priority);
+        return Response.ok(todos).build();
+    }
+
 }

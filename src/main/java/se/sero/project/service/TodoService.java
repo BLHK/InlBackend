@@ -4,6 +4,7 @@ import org.glassfish.jersey.internal.guava.Lists;
 import org.springframework.stereotype.Service;
 import se.sero.project.data.Todo;
 import se.sero.project.repository.TodoRepository;
+import se.sero.project.service.exceptions.InvalidTodoException;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +23,7 @@ public class TodoService {
     }
 
     public Todo createTodo(Todo todo){
+        validate(todo);
         return repository.save(new Todo(todo.getUser(), todo.getToDo(), todo.getPriority()));
     }
 
@@ -41,5 +43,20 @@ public class TodoService {
         return false;
     }
 
+    public List<Todo> getTodosByUserId(Long userId) {
+
+        return Lists.newArrayList(repository.getTodosByUser_Id(userId));
+    }
+
+    public List<Todo> getTodosByUserIdAndPriority(Long id, String priority) {
+        return Lists.newArrayList(repository.getTodosByUser_IdAndPriority(id, priority));
+    }
+
+    private void validate(Todo todo) {
+        if (todo.getToDo() == null || todo.getToDo().isEmpty() ||
+                todo.getPriority() == null || todo.getPriority().isEmpty()) {
+            throw new InvalidTodoException("Fields of object Todo cannot be empty.");
+        }
+    }
 
 }

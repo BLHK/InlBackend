@@ -26,11 +26,13 @@ import static javax.ws.rs.core.Response.Status.NO_CONTENT;
 @Path("users")
 public final class UserResource {
 
+    /*
     @Context
     private UriInfo uriInfo;
 
     @Context
     private HttpHeaders headers;
+    */
 
     private final UserService service;
 
@@ -74,16 +76,5 @@ public final class UserResource {
     @Path("{id}")
     public void updateUser(@PathParam("id") Long id, User user) {
         service.updateUser(user);
-    }
-    */
-    /*
-
-
-    @DELETE
-    @Path("{id}")
-    public Response deleteUser(@PathParam("id") Long id){
-        return service.deleteUser(id).map(c -> Response.status(NO_CONTENT)).orElse(Response.status(NOT_FOUND)).build();
-    }
-
-    */
+    }*/
 }

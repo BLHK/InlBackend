@@ -1,6 +1,7 @@
 package se.sero.project.data;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.ws.rs.DefaultValue;
@@ -8,16 +9,16 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "todos")
-public class Todo {
+public final class Todo {
 
     @Id
     @GeneratedValue
-    @Column(name = "todo_id")
+    @Column(name = "Id")
     private Long id;
 
-    @JsonBackReference
-    @JoinColumn(name = "user_id")
-    @ManyToOne(cascade = CascadeType.ALL)
+    //@JsonBackReference
+    //@JoinColumn(name = "user_id")
+    @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
     private String toDo;
