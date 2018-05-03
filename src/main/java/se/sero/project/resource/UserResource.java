@@ -5,20 +5,12 @@ import se.sero.project.data.User;
 import se.sero.project.service.UserService;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
-
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.net.URI;
 import java.util.List;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.Response.Status.CREATED;
 import static javax.ws.rs.core.Response.Status.NOT_FOUND;
-import static javax.ws.rs.core.Response.Status.NO_CONTENT;
 
 @Component
 @Produces(APPLICATION_JSON)
@@ -43,7 +35,6 @@ public final class UserResource {
     @POST
     public Response createUser(User user){
         User result = service.createUser(user);
-        //URI location = uriInfo.getAbsolutePathBuilder().path(result.getId()).build();
         return Response.status(CREATED).header("Location", "users/" + result.getId()).build();
     }
 

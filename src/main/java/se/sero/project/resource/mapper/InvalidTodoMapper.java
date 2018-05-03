@@ -10,7 +10,7 @@ import static java.util.Collections.singletonMap;
 import static javax.ws.rs.core.Response.Status.BAD_REQUEST;
 
 @Provider
-public class InvalidTodoMapper implements ExceptionMapper<InvalidTodoException> {
+public final class InvalidTodoMapper implements ExceptionMapper<InvalidTodoException> {
 
     @Override
     public Response toResponse(InvalidTodoException e) {

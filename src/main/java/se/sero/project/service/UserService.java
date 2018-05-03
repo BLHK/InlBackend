@@ -15,7 +15,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import static java.util.stream.Collectors.toList;
 
 @Service
-public class UserService {
+public final class UserService {
 
     private final UserRepository repository;
 

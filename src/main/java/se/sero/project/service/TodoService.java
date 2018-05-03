@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 import static java.util.stream.Collectors.toList;
 
 @Service
-public class TodoService {
+public final class TodoService {
 
     private final TodoRepository repository;
 

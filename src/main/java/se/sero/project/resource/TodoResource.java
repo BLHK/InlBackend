@@ -22,7 +22,7 @@ import static javax.ws.rs.core.Response.Status.NO_CONTENT;
 @Produces(APPLICATION_JSON)
 @Consumes(APPLICATION_JSON)
 @Path("todos")
-public class TodoResource {
+public final class TodoResource {
 
     /*
     @Context
